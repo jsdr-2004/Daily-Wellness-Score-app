@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="jaddusd_MyfirstApp1.ResultPage"
+             Title="Wellness Result"
+             BackgroundColor="#F6F7FB"
+             Padding="20">
+
+    <VerticalStackLayout Spacing="20">
+
+        <Label Text="Your Wellness Score"
+               FontSize="22"
+               FontAttributes="Bold"
+               HorizontalOptions="Center"/>
+
+        <Label x:Name="ScoreLabel"
+               FontSize="60"
+               FontAttributes="Bold"
+               HorizontalOptions="Center"/>
+
+        <Label x:Name="StatusLabel"
+               FontSize="24"
+               HorizontalOptions="Center"/>
+
+        <Button Text="Recommendations"
+                BackgroundColor="#2563EB"
+                TextColor="White"
+                Clicked="OnRecommendationsClicked"/>
+
+        <Button Text="Back to Inputs"
+                Clicked="OnBackClicked"/>
+
+    </VerticalStackLayout>
+</ContentPage>

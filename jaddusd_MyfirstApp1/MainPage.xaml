@@ -2,163 +2,88 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="jaddusd_MyfirstApp1.MainPage"
-             Title="Daily Wellness Score"
+             Title="Daily Wellness"
              BackgroundColor="#F6F7FB"
              Padding="16">
 
     <ScrollView>
-        <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto"
-              RowSpacing="16">
+        <VerticalStackLayout Spacing="20">
 
-            <!-- Title -->
-            <VerticalStackLayout Grid.Row="0" Spacing="4">
-                <Label Text="Daily Wellness Score"
-                       FontSize="26"
-                       FontAttributes="Bold"
-                       TextColor="Black"/>
-                <Label Text="Tap a gender, adjust sliders, and view your score."
-                       FontSize="14"
-                       Opacity="0.7"
-                       TextColor="Black"/>
-            </VerticalStackLayout>
+            <Label Text="Daily Wellness Score"
+                   FontSize="26"
+                   FontAttributes="Bold"/>
 
             <!-- Gender Selection -->
-            <Grid Grid.Row="1"
-                  ColumnDefinitions="*,*"
-                  ColumnSpacing="14">
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="14">
 
-                <!-- Male -->
                 <Frame x:Name="MaleCard"
                        Padding="12"
                        CornerRadius="18"
-                       HasShadow="True"
-                       BorderColor="#2563EB"
-                       BackgroundColor="#E8F0FF">
-                    <VerticalStackLayout HorizontalOptions="Center" Spacing="10">
-                        <Image x:Name="MaleImage"
-                               Source="male.png"
-                               HeightRequest="110"
-                               WidthRequest="110">
+                       HasShadow="True">
+                    <VerticalStackLayout HorizontalOptions="Center">
+                        <Image Source="male.png"
+                               HeightRequest="100"
+                               WidthRequest="100">
                             <Image.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="OnMaleTapped"/>
                             </Image.GestureRecognizers>
                         </Image>
-                        <Label Text="Male" FontAttributes="Bold" TextColor="Black"/>
+                        <Label Text="Male" FontAttributes="Bold"/>
                     </VerticalStackLayout>
                 </Frame>
 
-                <!-- Female -->
                 <Frame x:Name="FemaleCard"
                        Grid.Column="1"
                        Padding="12"
                        CornerRadius="18"
-                       HasShadow="True"
-                       BorderColor="Transparent"
-                       BackgroundColor="White">
-                    <VerticalStackLayout HorizontalOptions="Center" Spacing="10">
-                        <Image x:Name="FemaleImage"
-                               Source="female.png"
-                               HeightRequest="110"
-                               WidthRequest="110">
+                       HasShadow="True">
+                    <VerticalStackLayout HorizontalOptions="Center">
+                        <Image Source="female.png"
+                               HeightRequest="100"
+                               WidthRequest="100">
                             <Image.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="OnFemaleTapped"/>
                             </Image.GestureRecognizers>
                         </Image>
-                        <Label Text="Female" FontAttributes="Bold" TextColor="Black"/>
+                        <Label Text="Female" FontAttributes="Bold"/>
                     </VerticalStackLayout>
                 </Frame>
 
             </Grid>
 
-            <!-- Sleep Slider -->
-            <Frame Grid.Row="2" CornerRadius="18" Padding="14" HasShadow="True" BackgroundColor="White">
-                <Grid RowDefinitions="Auto,Auto"
-                      ColumnDefinitions="*,Auto"
-                      RowSpacing="10">
-                    <Label Text="Sleep Hours (last night)" FontAttributes="Bold" TextColor="Black"/>
-                    <Label x:Name="SleepValueLabel" Grid.Column="1" Text="7.0 h" Opacity="0.8" TextColor="Black"/>
+            <!-- Sleep -->
+            <Label Text="Sleep Hours"/>
+            <Slider x:Name="SleepSlider"
+                    Minimum="0"
+                    Maximum="12"
+                    Value="7"
+                    ValueChanged="OnSliderChanged"/>
+            <Label x:Name="SleepValueLabel" Text="7.0 h"/>
 
-                    <Slider x:Name="SleepSlider"
-                            Grid.Row="1" Grid.ColumnSpan="2"
-                            Minimum="0"
-                            Maximum="12"
-                            Value="7"
-                            ValueChanged="OnSliderChanged"/>
-                </Grid>
-            </Frame>
+            <!-- Stress -->
+            <Label Text="Stress Level"/>
+            <Slider x:Name="StressSlider"
+                    Minimum="0"
+                    Maximum="10"
+                    Value="4"
+                    ValueChanged="OnSliderChanged"/>
+            <Label x:Name="StressValueLabel" Text="4.0 / 10"/>
 
-            <!-- Stress Slider -->
-            <Frame Grid.Row="3" CornerRadius="18" Padding="14" HasShadow="True" BackgroundColor="White">
-                <Grid RowDefinitions="Auto,Auto"
-                      ColumnDefinitions="*,Auto"
-                      RowSpacing="10">
-                    <Label Text="Stress Level" FontAttributes="Bold" TextColor="Black"/>
-                    <Label x:Name="StressValueLabel" Grid.Column="1" Text="4.0 / 10" Opacity="0.8" TextColor="Black"/>
+            <!-- Activity -->
+            <Label Text="Activity Minutes"/>
+            <Slider x:Name="ActivitySlider"
+                    Minimum="0"
+                    Maximum="120"
+                    Value="30"
+                    ValueChanged="OnSliderChanged"/>
+            <Label x:Name="ActivityValueLabel" Text="30 min"/>
 
-                    <Slider x:Name="StressSlider"
-                            Grid.Row="1" Grid.ColumnSpan="2"
-                            Minimum="0"
-                            Maximum="10"
-                            Value="4"
-                            ValueChanged="OnSliderChanged"/>
-                </Grid>
-            </Frame>
+            <Button Text="Next"
+                    BackgroundColor="#2563EB"
+                    TextColor="White"
+                    CornerRadius="18"
+                    Clicked="OnNextClicked"/>
 
-            <!-- Activity Slider + Results Card -->
-            <VerticalStackLayout Grid.Row="4" Spacing="16">
-
-                <Frame CornerRadius="18" Padding="14" HasShadow="True" BackgroundColor="White">
-                    <Grid RowDefinitions="Auto,Auto"
-                          ColumnDefinitions="*,Auto"
-                          RowSpacing="10">
-                        <Label Text="Activity Minutes (today)" FontAttributes="Bold" TextColor="Black"/>
-                        <Label x:Name="ActivityValueLabel" Grid.Column="1" Text="30 min" Opacity="0.8" TextColor="Black"/>
-
-                        <Slider x:Name="ActivitySlider"
-                                Grid.Row="1" Grid.ColumnSpan="2"
-                                Minimum="0"
-                                Maximum="120"
-                                Value="30"
-                                ValueChanged="OnSliderChanged"/>
-                    </Grid>
-                </Frame>
-
-                <!-- Results Card -->
-                <Frame CornerRadius="22" Padding="16" HasShadow="True" BackgroundColor="White">
-                    <Grid RowDefinitions="Auto,Auto,Auto" RowSpacing="10">
-
-                        <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
-                            <Label x:Name="ScoreLabel"
-                                   Text="65"
-                                   FontSize="44"
-                                   FontAttributes="Bold"
-                                   TextColor="Black"/>
-                            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
-                                <Label Text="Wellness Score" FontSize="14" Opacity="0.7" TextColor="Black"/>
-                                <Label x:Name="StatusLabel"
-                                       Text="Good"
-                                       FontSize="18"
-                                       FontAttributes="Bold"
-                                       TextColor="Black"/>
-                            </VerticalStackLayout>
-                        </Grid>
-
-                        <BoxView Grid.Row="1" HeightRequest="1" Opacity="0.2" Color="Black"/>
-
-                        <VerticalStackLayout Grid.Row="2" Spacing="6">
-                            <Label Text="Recommendations" FontAttributes="Bold" FontSize="16" TextColor="Black"/>
-                            <Label x:Name="RecommendationLabel"
-                                   Text="Improve recovery with an earlier bedtime; add 15 min of light cardio or stretching; keep hydration steady."
-                                   FontSize="14"
-                                   LineHeight="1.2"
-                                   TextColor="Black"/>
-                        </VerticalStackLayout>
-
-                    </Grid>
-                </Frame>
-
-            </VerticalStackLayout>
-
-        </Grid>
+        </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
